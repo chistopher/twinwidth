@@ -1,0 +1,47 @@
+data/exact_002.gr 20 69
+Branch and Bound Solution (118ms)
+data/exact_004.gr 25 181
+Branch and Bound Solution (3745ms)
+data/exact_006.gr 28 131
+Branch and Bound Solution (14544ms)
+data/exact_008.gr 28 210
+Branch and Bound Solution (398ms)
+data/exact_010.gr 28 235
+Branch and Bound Solution (57616ms)
+data/exact_012.gr 29 180
+Branch and Bound Solution (30536ms)
+data/exact_014.gr 30 175
+Branch and Bound Solution (19792ms)
+data/exact_016.gr 30 195
+timeout
+data/exact_018.gr 31 52
+timeout
+data/exact_020.gr 32 90
+timeout
+data/exact_022.gr 33 135
+timeout
+data/exact_024.gr 40 89
+timeout
+data/exact_026.gr 44 95
+timeout
+data/exact_028.gr 47 79
+timeout
+data/exact_030.gr 48 78
+timeout
+data/exact_032.gr 48 94
+timeout
+data/exact_034.gr 51 240
+Branch and Bound Solution (38967ms)
+data/exact_036.gr 52 87
+timeout
+data/exact_038.gr 52 141
+timeout
+data/exact_040.gr 54 85
+timeout
+data/exact_042.gr 54 124
+timeout
+data/exact_044.gr 56 64
+Branch and Bound Solution (14259ms)
+data/exact_046.gr 57 107
+timeout
+

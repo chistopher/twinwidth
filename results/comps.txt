@@ -1,0 +1,300 @@
+data/exact_002.gr 20 69 6.9
+comps:  1  (max= 20 )
+
+data/exact_004.gr 25 181 14.48
+comps:  1  (max= 25 )
+
+data/exact_006.gr 28 131 9.36
+comps:  1  (max= 28 )
+
+data/exact_008.gr 28 210 15.0
+comps:  1  (max= 28 )
+
+data/exact_010.gr 28 235 16.79
+comps:  1  (max= 28 )
+
+data/exact_012.gr 29 180 12.41
+comps:  1  (max= 29 )
+
+data/exact_014.gr 30 175 11.67
+comps:  1  (max= 30 )
+
+data/exact_016.gr 30 195 13.0
+comps:  1  (max= 30 )
+
+data/exact_018.gr 31 52 3.35
+comps:  1  (max= 31 )
+
+data/exact_020.gr 32 90 5.62
+comps:  1  (max= 32 )
+
+data/exact_022.gr 33 135 8.18
+comps:  1  (max= 33 )
+
+data/exact_024.gr 40 89 4.45
+comps:  3  (max= 35 )
+
+data/exact_026.gr 44 95 4.32
+comps:  1  (max= 44 )
+
+data/exact_028.gr 47 79 3.36
+comps:  1  (max= 47 )
+
+data/exact_030.gr 48 78 3.25
+comps:  1  (max= 48 )
+
+data/exact_032.gr 48 94 3.92
+comps:  1  (max= 48 )
+
+data/exact_034.gr 51 240 9.41
+comps:  1  (max= 51 )
+
+data/exact_036.gr 52 87 3.35
+comps:  1  (max= 52 )
+
+data/exact_038.gr 52 141 5.42
+comps:  1  (max= 52 )
+
+data/exact_040.gr 54 85 3.15
+comps:  1  (max= 54 )
+
+data/exact_042.gr 54 124 4.59
+comps:  1  (max= 54 )
+
+data/exact_044.gr 56 64 2.29
+comps:  1  (max= 56 )
+
+data/exact_046.gr 57 107 3.75
+comps:  1  (max= 57 )
+
+data/exact_048.gr 60 103 3.43
+comps:  1  (max= 60 )
+
+data/exact_050.gr 62 108 3.48
+comps:  1  (max= 62 )
+
+data/exact_052.gr 66 122 3.7
+comps:  3  (max= 60 )
+
+data/exact_054.gr 73 132 3.62
+comps:  11  (max= 31 )
+
+data/exact_056.gr 74 116 3.14
+comps:  8  (max= 52 )
+
+data/exact_058.gr 78 93 2.38
+comps:  1  (max= 78 )
+
+data/exact_060.gr 80 94 2.35
+comps:  1  (max= 80 )
+
+data/exact_062.gr 81 155 3.83
+comps:  4  (max= 60 )
+
+data/exact_064.gr 84 85 2.02
+comps:  1  (max= 84 )
+
+data/exact_066.gr 94 98 2.09
+comps:  2  (max= 59 )
+
+data/exact_068.gr 103 151 2.93
+comps:  15  (max= 59 )
+
+data/exact_070.gr 140 6480 92.57
+comps:  1  (max= 140 )
+
+data/exact_072.gr 141 6417 91.02
+comps:  1  (max= 141 )
+
+data/exact_074.gr 141 6607 93.72
+comps:  1  (max= 141 )
+
+data/exact_076.gr 141 6731 95.48
+comps:  1  (max= 141 )
+
+data/exact_078.gr 143 6625 92.66
+comps:  1  (max= 143 )
+
+data/exact_080.gr 143 7061 98.76
+comps:  1  (max= 143 )
+
+data/exact_082.gr 143 7209 100.83
+comps:  1  (max= 143 )
+
+data/exact_084.gr 200 12048 120.48
+comps:  1  (max= 200 )
+
+data/exact_086.gr 200 13868 138.68
+comps:  1  (max= 200 )
+
+data/exact_088.gr 200 13930 139.3
+comps:  1  (max= 200 )
+
+data/exact_090.gr 202 4574 45.29
+comps:  1  (max= 202 )
+
+data/exact_092.gr 478 8562 35.82
+comps:  1  (max= 478 )
+
+data/exact_094.gr 822 4518 10.99
+comps:  1  (max= 822 )
+
+data/exact_096.gr 822 4698 11.43
+comps:  1  (max= 822 )
+
+data/exact_098.gr 909 2782 6.12
+comps:  3  (max= 903 )
+
+data/exact_100.gr 916 2994 6.54
+comps:  3  (max= 912 )
+
+data/exact_102.gr 1010 3648 7.22
+comps:  9  (max= 994 )
+
+data/exact_104.gr 1024 4916 9.6
+comps:  1  (max= 1024 )
+
+data/exact_106.gr 1049 13426 25.6
+comps:  1  (max= 1049 )
+
+data/exact_108.gr 1182 17447 29.52
+comps:  1  (max= 1182 )
+
+data/exact_110.gr 1224 5822 9.51
+comps:  1  (max= 1224 )
+
+data/exact_112.gr 1258 7513 11.94
+comps:  1  (max= 1258 )
+
+data/exact_114.gr 1350 5215 7.73
+comps:  1  (max= 1350 )
+
+data/exact_116.gr 1365 5263 7.71
+comps:  1  (max= 1365 )
+
+data/exact_118.gr 1413 3955 5.6
+comps:  7  (max= 1371 )
+
+data/exact_120.gr 1488 3777 5.08
+comps:  4  (max= 1451 )
+
+data/exact_122.gr 1505 4700 6.25
+comps:  18  (max= 1471 )
+
+data/exact_124.gr 1586 5511 6.95
+comps:  1  (max= 1586 )
+
+data/exact_126.gr 1632 7281 8.92
+comps:  1  (max= 1632 )
+
+data/exact_128.gr 1700 4200 4.94
+comps:  1  (max= 1700 )
+
+data/exact_130.gr 1742 5081 5.83
+comps:  1  (max= 1742 )
+
+data/exact_132.gr 1813 6367 7.02
+comps:  3  (max= 1809 )
+
+data/exact_134.gr 1813 6384 7.04
+comps:  3  (max= 1809 )
+
+data/exact_136.gr 1236 11416 18.47
+comps:  1  (max= 1236 )
+
+data/exact_138.gr 1280 26130 40.83
+comps:  1  (max= 1266 )
+
+data/exact_140.gr 1760 16192 18.4
+comps:  1  (max= 1760 )
+
+data/exact_142.gr 2166 16272 15.02
+comps:  1  (max= 2166 )
+
+data/exact_144.gr 3509 14324 8.16
+comps:  1  (max= 3509 )
+
+data/exact_146.gr 4838 5578 2.31
+comps:  1  (max= 4838 )
+
+data/exact_148.gr 5486 13564 4.94
+comps:  2  (max= 5464 )
+
+data/exact_150.gr 5612 11006 3.92
+comps:  1079  (max= 3456 )
+
+data/exact_152.gr 1814 6387 7.04
+comps:  3  (max= 1810 )
+
+data/exact_154.gr 2017 14708 14.58
+comps:  1  (max= 2017 )
+
+data/exact_156.gr 2166 6373 5.88
+comps:  1  (max= 2166 )
+
+data/exact_158.gr 2194 17836 16.26
+comps:  3  (max= 2186 )
+
+data/exact_160.gr 2263 3107 2.75
+comps:  1  (max= 2263 )
+
+data/exact_162.gr 2530 3057 2.42
+comps:  1  (max= 2530 )
+
+data/exact_164.gr 2543 4244 3.34
+comps:  123  (max= 2299 )
+
+data/exact_166.gr 2562 3256 2.54
+comps:  1  (max= 2562 )
+
+data/exact_168.gr 2675 3185 2.38
+comps:  3  (max= 2634 )
+
+data/exact_170.gr 2735 7704 5.63
+comps:  1  (max= 2735 )
+
+data/exact_172.gr 2931 5369 3.66
+comps:  1  (max= 2931 )
+
+data/exact_174.gr 3006 10806 7.19
+comps:  1  (max= 3006 )
+
+data/exact_176.gr 3006 10806 7.19
+comps:  1  (max= 3006 )
+
+data/exact_178.gr 3034 3297 2.17
+comps:  4  (max= 2925 )
+
+data/exact_180.gr 3086 5764 3.74
+comps:  4  (max= 2960 )
+
+data/exact_182.gr 3200 7840 4.9
+comps:  1  (max= 3200 )
+
+data/exact_184.gr 3477 8337 4.8
+comps:  1  (max= 3477 )
+
+data/exact_186.gr 3482 8237 4.73
+comps:  1  (max= 3482 )
+
+data/exact_188.gr 3530 5473 3.1
+comps:  155  (max= 3222 )
+
+data/exact_190.gr 3600 11500 6.39
+comps:  2  (max= 1800 )
+
+data/exact_192.gr 3969 13555 6.83
+comps:  1  (max= 3969 )
+
+data/exact_194.gr 5067 5540 2.19
+comps:  1  (max= 5067 )
+
+data/exact_196.gr 7253 6711 1.85
+comps:  723  (max= 4475 )
+
+data/exact_198.gr 7537 8559 2.27
+comps:  1  (max= 7537 )
+
+data/exact_200.gr 20000 15000 1.5
+comps:  5000  (max= 4 )
+

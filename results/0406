@@ -1,0 +1,512 @@
+1 data/exact_002.gr 20 69
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+Branch and Bound Solution (4ms)
+twin width: 6
+2 data/exact_004.gr 25 181
+BnB found 16
+BnB found 15
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+Branch and Bound Solution (224ms)
+twin width: 7
+3 data/exact_006.gr 28 131
+BnB found 18
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+Branch and Bound Solution (780ms)
+twin width: 7
+4 data/exact_008.gr 28 210
+BnB found 18
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+Branch and Bound Solution (21ms)
+twin width: 10
+5 data/exact_010.gr 28 235
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+Branch and Bound Solution (3033ms)
+twin width: 6
+6 data/exact_012.gr 29 180
+BnB found 20
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+Branch and Bound Solution (1721ms)
+twin width: 8
+7 data/exact_014.gr 30 175
+BnB found 18
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+Branch and Bound Solution (1187ms)
+twin width: 8
+8 data/exact_016.gr 30 195
+BnB found 21
+BnB found 20
+BnB found 19
+BnB found 18
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+Branch and Bound Solution (3465ms)
+twin width: 8
+9 data/exact_018.gr 31 52
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+Branch and Bound Solution (3766ms)
+twin width: 3
+10 data/exact_020.gr 32 90
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+Branch and Bound Solution (6975ms)
+twin width: 5
+11 data/exact_022.gr 33 135
+BnB found 12
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+timeout
+12 data/exact_024.gr 40 89
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+timeout
+13 data/exact_026.gr 44 95
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+timeout
+14 data/exact_028.gr 47 79
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+15 data/exact_030.gr 48 78
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+16 data/exact_032.gr 48 94
+BnB found 15
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+17 data/exact_034.gr 51 240
+BnB found 6
+BnB found 5
+BnB found 4
+Branch and Bound Solution (2450ms)
+twin width: 4
+18 data/exact_036.gr 52 87
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+19 data/exact_038.gr 52 141
+BnB found 15
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+timeout
+20 data/exact_040.gr 54 85
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+21 data/exact_042.gr 54 124
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+22 data/exact_044.gr 56 64
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+Branch and Bound Solution (683ms)
+twin width: 2
+23 data/exact_046.gr 57 107
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+24 data/exact_048.gr 60 103
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+25 data/exact_050.gr 62 108
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+Branch and Bound Solution (1832ms)
+twin width: 2
+26 data/exact_052.gr 66 122
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+27 data/exact_054.gr 73 132
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+timeout
+28 data/exact_056.gr 74 116
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+BnB found 0
+BnB found 2
+BnB found 1
+BnB found 0
+BnB found 0
+BnB found 0
+BnB found 0
+BnB found 0
+Branch and Bound Solution (1203ms)
+twin width: 2
+29 data/exact_058.gr 78 93
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+30 data/exact_060.gr 80 94
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+31 data/exact_062.gr 81 155
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+32 data/exact_064.gr 84 85
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+33 data/exact_066.gr 94 98
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+BnB found 1
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+Branch and Bound Solution (5228ms)
+twin width: 2
+34 data/exact_068.gr 103 151
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+35 data/exact_070.gr 140 6480
+BnB found 101
+BnB found 100
+BnB found 99
+BnB found 96
+BnB found 95
+BnB found 94
+BnB found 93
+BnB found 92
+BnB found 91
+BnB found 90
+BnB found 89
+BnB found 88
+BnB found 87
+BnB found 86
+BnB found 85
+BnB found 84
+BnB found 83
+BnB found 82
+BnB found 81
+BnB found 80
+BnB found 79
+BnB found 78
+BnB found 77
+BnB found 76
+BnB found 75
+BnB found 74
+BnB found 73
+BnB found 72
+BnB found 71
+BnB found 70
+BnB found 69
+BnB found 68
+BnB found 67
+BnB found 66
+BnB found 65
+BnB found 64
+BnB found 63
+BnB found 62
+BnB found 61
+BnB found 60
+BnB found 59
+timeout
+36 data/exact_072.gr 141 6417
+BnB found 110
+BnB found 108
+BnB found 107
+BnB found 103
+BnB found 102
+BnB found 100
+BnB found 99
+BnB found 98
+BnB found 96
+BnB found 95
+BnB found 94
+BnB found 91
+BnB found 90
+BnB found 89
+BnB found 85
+BnB found 84
+BnB found 83
+BnB found 82
+BnB found 81
+BnB found 80
+BnB found 79
+BnB found 78
+BnB found 77
+BnB found 76
+BnB found 75
+BnB found 74
+BnB found 73
+BnB found 72
+BnB found 71
+BnB found 70
+BnB found 69
+BnB found 68
+BnB found 67
+BnB found 66
+BnB found 65
+BnB found 64
+BnB found 63
+BnB found 62
+BnB found 61
+BnB found 60
+BnB found 59
+BnB found 58
+BnB found 57
+BnB found 56
+BnB found 55
+timeout
+37 data/exact_074.gr 141 6607
+BnB found 110
+BnB found 106
+BnB found 105
+BnB found 104
+BnB found 103
+BnB found 102
+BnB found 101
+BnB found 99
+BnB found 98
+BnB found 97
+BnB found 96
+BnB found 95
+BnB found 94
+BnB found 93
+BnB found 91
+BnB found 90
+BnB found 88
+BnB found 87
+BnB found 86
+BnB found 85
+BnB found 84
+BnB found 83
+BnB found 82
+BnB found 81
+BnB found 80
+BnB found 79
+BnB found 78
+BnB found 77
+BnB found 76
+BnB found 75
+BnB found 74
+BnB found 73
+BnB found 72
+BnB found 71
+BnB found 70
+BnB found 69
+BnB found 68
+BnB found 67
+BnB found 66
+timeout
+38 data/exact_076.gr 141 6731
+BnB found 105
+BnB found 104
+BnB found 103
+BnB found 102
+BnB found 100
+BnB found 98
+BnB found 97
+BnB found 96
+BnB found 95
+BnB found 94
+BnB found 93
+BnB found 92
+

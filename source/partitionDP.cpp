@@ -9,6 +9,16 @@ using namespace std;
 using ll = long long;
 using Graph = vector<vector<int>>; // adj matrix; 0: no edge 1: edge 2: red edge -1: deleted vertex
 
+Graph generateER(int n, double p) {
+    uniform_real_distribution dist;
+    mt19937 gen;
+    vector mat(n, vector(n, 0));
+    rep(i,n) rep(j,n)
+            if(i<j && dist(gen)<p)
+                mat[i][j] = mat[j][i] = 1;
+    return mat;
+}
+
 struct TreeRepresentation {
     vector<int> order;
     vector<int> parent;
@@ -18,90 +28,60 @@ struct Solution {
     Graph mat;
     TreeRepresentation merges;
     int width = 1e9;
-    vector<int> rdeg;
     void merge(int from, int to) {
         rep(i,ssize(mat)) {
             if(i==from || i==to) continue;
             auto same = (mat[i][from] == mat[i][to]);
             auto new_val = same ? mat[i][to] : 2;
-            if(mat[i][to] == 2 && new_val != 2) rdeg[i]--, rdeg[to]--;
-            if(mat[i][to] != 2 && new_val == 2) rdeg[i]++, rdeg[to]++;
             mat[i][to] = mat[to][i] = new_val;
 
         }
-        rep(i,ssize(mat)) {
-            if(mat[i][from] == 2) rdeg[i]--, rdeg[from]--;
-            mat[i][from] = mat[from][i] = -1;
-        }
-        //rep(i,ssize(mat)) width = max(width, (int)count(all(mat[i]),2));
-        width = max(width, *max_element(all(rdeg)));
-        rep(i,ssize(mat)) assert(rdeg[i]==count(all(mat[i]),2));
+        rep(i,ssize(mat)) mat[i][from] = mat[from][i] = -1;
+        rep(i,ssize(mat)) width = max(width, (int)count(all(mat[i]),2));
         merges.order.push_back(from);
         merges.parent[from] = to;
     }
 };
 
-map<vector<int>,int> cache;
-// runtime: fac(n) * fac(n-1) // 2**(n-1) * poly(n)
-void iterate_trees(Solution partial, Solution& best, vector<int> partition) {
-    auto n = ssize(partial.mat);
-    if(size(partial.merges.order) == n - 1) { // complete tree
-        if(partial.width < best.width) {
-            best = partial;
-            cout << "BnB found " << partial.width << endl;
-        }
-        return;
-    }
-
-    // early pruning
-    if(partial.width>=best.width) return;
-    if(auto it = cache.find(partition); it!=end(cache) && it->second<=partial.width)
-        return;
-    else cache[partition] = partial.width;
-
-    // find out nodes in graph merged until i-1
-    vector<bool> alive(n,true);
-    for(auto& x: partial.merges.order)
-        alive[x] = false;
-
-    // merge twins
-    rep(v,n) rep(u,n) { // v into u
-        if(!alive[v] || !alive[u] || u==v) continue;
-        bool eq = 1;
-        //rep(i,n) if(alive[i] && i!=v && i!=u && partial.mat[v][i]!=partial.mat[u][i]) eq = 0;
-        rep(i,n) {
-            if(!alive[i] || i==v || i==u) continue;
-            if(minmax(partial.mat[v][i],partial.mat[u][i])==minmax(0,1)) eq = 0;
-            if(partial.mat[v][i]==2 && partial.mat[u][i]!=2) eq = 0;
-            if(eq==0) break;
-        }
-        if(eq) {
-            partial.merge(v,u);
-            replace(all(partition),v,u);
-            return iterate_trees(move(partial),best,partition);
-        }
-    }
-
-    rep(v,n) { // iterate possible candidates for order
-        if(!alive[v]) continue;
-        for(int p=v+1; p<n; ++p) { // iterate all possible parents
-            if(!alive[p]) continue;
-            auto nxt = partial; nxt.merge(v,p);
-            auto nextPar = partition;
-            rep(i,n) if(nextPar[i]==v) nextPar[i] = p;
-            iterate_trees(nxt,best,nextPar);
-        }
-    }
-}
-
-Solution branch_and_bound(const Graph& g) {
+optional<Solution> partitionDP(const Graph& g, int upper_bound = 1e9) {
+    using Partition = vector<int>; // rep for each merged comp is the highest vertex inside; partition is rep for each vertex
     auto n = ssize(g);
-    cache.clear();
-    Solution best, partial{g,{.order = {},.parent = vector(n,-1)},0, vector(n,0)};
-    vector partition(n,0);
-    iota(all(partition),0);
-    iterate_trees(partial, best, partition);
-    return best;
+
+    map<Partition, Solution> cache;
+    queue<Partition> q;
+    Partition start(n);
+    iota(all(start),0);
+    cache[start] = {g,{.order = {},.parent = vector(n,-1)},0};
+    q.push(start);
+    while(size(q)) { // basically a BFS
+        Partition curPar = q.front(); q.pop();
+        auto remVerts = curPar;
+        sort(all(remVerts));
+        remVerts.erase(unique(all(remVerts)),end(remVerts)); // now contains all reps of partition
+        auto curSol = cache[curPar];
+        if(size(remVerts)==1)
+            return curSol; // all nodes merged
+
+        for(auto v : remVerts) {
+            for(auto u : remVerts) { // merge v into u
+                if(v>=u) continue; // parent should always have higher index
+                auto nextSol = curSol;
+                nextSol.merge(v,u);
+                if(nextSol.width >= upper_bound) continue; // some pruning
+
+                auto nextPar = curPar;
+                rep(i,n) if(nextPar[i]==v) nextPar[i] = u;
+
+                if(auto it = cache.find(nextPar); it==end(cache)) { // new reachable partition
+                    cache[nextPar] = nextSol;
+                    q.push(nextPar);
+                } else if(nextSol.width < it->second.width) { // found better way to same partition
+                    cache[nextPar] = nextSol;
+                }
+            }
+        }
+    }
+    return {};
 }
 
 struct EdgeList {
@@ -179,7 +159,7 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
 
-    //freopen("../../data/exact_050.gr", "r", stdin);
+    freopen("../../data/exact_050.gr", "r", stdin);
 
     auto edge_list = readInput();
 
@@ -187,8 +167,8 @@ int main() {
     auto comps = components(edge_list);
     vector<Solution> sols;
     for(auto& comp : comps) {
-        auto sol = branch_and_bound(toMat(comp));
-        sols.push_back(sol);
+        auto sol = partitionDP(toMat(comp));
+        sols.push_back(*sol);
     }
     auto t2 = chrono::steady_clock::now();
     cout << "Branch and Bound Solution (";
