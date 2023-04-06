@@ -41,68 +41,84 @@ struct Solution {
     }
 };
 
-map<vector<int>,int> cache;
-// runtime: fac(n) * fac(n-1) // 2**(n-1) * poly(n)
-void iterate_trees(Solution partial, Solution& best, vector<int> partition) {
-    auto n = ssize(partial.mat);
-    if(size(partial.merges.order) == n - 1) { // complete tree
-        if(partial.width < best.width) {
-            best = partial;
-            cout << "BnB found " << partial.width << endl;
+struct Algo {
+    bool verbose = false;
+    const Graph g;
+    map<vector<int>,int> cache;
+    Solution best;
+    int lower_bound = 0;
+
+    explicit Algo(const Graph& _g) : g(_g) {};
+
+    // runtime: fac(n) * fac(n-1) // 2**(n-1) * poly(n)
+    void iterate_trees(Solution partial, vector<int> partition) {
+        if(best.width <= lower_bound) return; // we are done -> break out of recursion
+
+        auto n = ssize(partial.mat);
+        if(size(partial.merges.order) == n - 1) { // complete tree
+            if(partial.width < best.width) {
+                best = partial;
+                if(verbose) cout << "BnB found " << partial.width << endl;
+            }
+            return;
         }
-        return;
+
+        // early pruning
+        if(partial.width>=best.width) return;
+        if(auto it = cache.find(partition); it!=end(cache) && it->second<=partial.width)
+            return;
+        else cache[partition] = partial.width;
+
+        // find out nodes in graph merged until i-1
+        vector<bool> alive(n,true);
+        for(auto& x: partial.merges.order)
+            alive[x] = false;
+
+        // merge twins
+        rep(v,n) rep(u,n) { // v into u
+                if(!alive[v] || !alive[u] || u==v) continue;
+                bool eq = 1;
+                //rep(i,n) if(alive[i] && i!=v && i!=u && partial.mat[v][i]!=partial.mat[u][i]) eq = 0;
+                rep(i,n) {
+                    if(!alive[i] || i==v || i==u) continue;
+                    if(minmax(partial.mat[v][i],partial.mat[u][i])==minmax(0,1)) eq = 0;
+                    if(partial.mat[v][i]==2 && partial.mat[u][i]!=2) eq = 0;
+                    if(eq==0) break;
+                }
+                if(eq) {
+                    partial.merge(v,u);
+                    replace(all(partition),v,u);
+                    return iterate_trees(move(partial),partition);
+                }
+            }
+
+        rep(v,n) { // iterate possible candidates for order
+            if(!alive[v]) continue;
+            for(int p=v+1; p<n; ++p) { // iterate all possible parents
+                if(!alive[p]) continue;
+                auto nxt = partial; nxt.merge(v,p);
+                auto nextPar = partition;
+                rep(i,n) if(nextPar[i]==v) nextPar[i] = p;
+                iterate_trees(nxt,nextPar);
+            }
+        }
     }
 
-    // early pruning
-    if(partial.width>=best.width) return;
-    if(auto it = cache.find(partition); it!=end(cache) && it->second<=partial.width)
-        return;
-    else cache[partition] = partial.width;
+    Solution solve(int lb = 0, int ub = 1e9) {
+        // reset stuff
+        cache.clear();
+        best = Solution{};
 
-    // find out nodes in graph merged until i-1
-    vector<bool> alive(n,true);
-    for(auto& x: partial.merges.order)
-        alive[x] = false;
-
-    // merge twins
-    rep(v,n) rep(u,n) { // v into u
-        if(!alive[v] || !alive[u] || u==v) continue;
-        bool eq = 1;
-        //rep(i,n) if(alive[i] && i!=v && i!=u && partial.mat[v][i]!=partial.mat[u][i]) eq = 0;
-        rep(i,n) {
-            if(!alive[i] || i==v || i==u) continue;
-            if(minmax(partial.mat[v][i],partial.mat[u][i])==minmax(0,1)) eq = 0;
-            if(partial.mat[v][i]==2 && partial.mat[u][i]!=2) eq = 0;
-            if(eq==0) break;
-        }
-        if(eq) {
-            partial.merge(v,u);
-            replace(all(partition),v,u);
-            return iterate_trees(move(partial),best,partition);
-        }
+        auto n = ssize(g);
+        best.width = ub;
+        lower_bound = lb;
+        Solution partial{g,{.order = {},.parent = vector(n,-1)}, 0, vector(n,0)};
+        vector partition(n,0);
+        iota(all(partition),0);
+        iterate_trees(partial, partition);
+        return best;
     }
-
-    rep(v,n) { // iterate possible candidates for order
-        if(!alive[v]) continue;
-        for(int p=v+1; p<n; ++p) { // iterate all possible parents
-            if(!alive[p]) continue;
-            auto nxt = partial; nxt.merge(v,p);
-            auto nextPar = partition;
-            rep(i,n) if(nextPar[i]==v) nextPar[i] = p;
-            iterate_trees(nxt,best,nextPar);
-        }
-    }
-}
-
-Solution branch_and_bound(const Graph& g) {
-    auto n = ssize(g);
-    cache.clear();
-    Solution best, partial{g,{.order = {},.parent = vector(n,-1)},0, vector(n,0)};
-    vector partition(n,0);
-    iota(all(partition),0);
-    iterate_trees(partial, best, partition);
-    return best;
-}
+};
 
 struct EdgeList {
     int n;
@@ -174,20 +190,61 @@ auto toMat(const EdgeList& g) {
     return mat;
 }
 
+Graph subgraph(const Graph& g, const vector<int>& nodes) {
+    auto n = ssize(nodes);
+    Graph mat(n, vector(n, 0));
+    rep(i,n) rep(j,n) mat[i][j] = g[nodes[i]][nodes[j]];
+    return mat;
+}
+
+int random_lower_bound(const Graph& mat, bool verbose) {
+    if(size(mat)<=30) return 0;
+    mt19937 gen{random_device{}()};
+    vector perm(size(mat),0);
+    iota(all(perm),0);
+    int lower_bound = 0;
+    rep(t,50000) {
+        int N = 20;
+        shuffle(all(perm),gen);
+        auto nodes = perm;
+        nodes.resize(N);
+        auto g = subgraph(mat,nodes);
+        auto sol = Algo(g).solve(lower_bound, lower_bound+2);
+        if(sol.width > lower_bound) {
+            if(verbose) cout << "found better lower bound: " << sol.width << endl;
+//            for(int v : nodes) cout << v << ' ';
+//            cout << endl;
+            lower_bound = sol.width;
+        }
+    }
+    return lower_bound;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.precision(10);
 
-    //freopen("../../data/exact_050.gr", "r", stdin);
+//    freopen("../../data/exact_048.gr", "r", stdin);
 
     auto edge_list = readInput();
+    cout << "n = " << edge_list.n << endl;
+    cout << "deg = " << 2*ssize(edge_list.edges)/edge_list.n << endl;
+    int l = 0;
+    {
+        auto t1 = chrono::steady_clock::now();
+        l = random_lower_bound(toMat(edge_list), true);
+        auto t2 = chrono::steady_clock::now();
+        cout << "done computing lower bounds in " << chrono::duration_cast<chrono::milliseconds>(t2-t1).count() << "ms" << endl;
+    }
 
     auto t1 = chrono::steady_clock::now();
     auto comps = components(edge_list);
     vector<Solution> sols;
     for(auto& comp : comps) {
-        auto sol = branch_and_bound(toMat(comp));
+        Algo alg(toMat(comp));
+        alg.verbose = true;
+        auto sol = alg.solve(l);
         sols.push_back(sol);
     }
     auto t2 = chrono::steady_clock::now();

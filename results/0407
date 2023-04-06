@@ -1,0 +1,531 @@
+1 data/exact_002.gr 20 69
+n = 20
+deg = 6
+done computing lower bounds in 0ms
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+Branch and Bound Solution (5ms)
+twin width: 6
+2 data/exact_004.gr 25 181
+n = 25
+deg = 14
+done computing lower bounds in 0ms
+BnB found 16
+BnB found 15
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+Branch and Bound Solution (233ms)
+twin width: 7
+3 data/exact_006.gr 28 131
+n = 28
+deg = 9
+done computing lower bounds in 0ms
+BnB found 18
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+Branch and Bound Solution (785ms)
+twin width: 7
+4 data/exact_008.gr 28 210
+n = 28
+deg = 15
+done computing lower bounds in 0ms
+BnB found 18
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+Branch and Bound Solution (14ms)
+twin width: 10
+5 data/exact_010.gr 28 235
+n = 28
+deg = 16
+done computing lower bounds in 0ms
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+Branch and Bound Solution (2965ms)
+twin width: 6
+6 data/exact_012.gr 29 180
+n = 29
+deg = 12
+done computing lower bounds in 0ms
+BnB found 20
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+Branch and Bound Solution (1672ms)
+twin width: 8
+7 data/exact_014.gr 30 175
+n = 30
+deg = 11
+done computing lower bounds in 0ms
+BnB found 18
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+Branch and Bound Solution (1092ms)
+twin width: 8
+8 data/exact_016.gr 30 195
+n = 30
+deg = 13
+done computing lower bounds in 0ms
+BnB found 21
+BnB found 20
+BnB found 19
+BnB found 18
+BnB found 17
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+Branch and Bound Solution (3419ms)
+twin width: 8
+9 data/exact_018.gr 31 52
+n = 31
+deg = 3
+found better lower bound: 2
+found better lower bound: 3
+done computing lower bounds in 25319ms
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+Branch and Bound Solution (1335ms)
+twin width: 3
+10 data/exact_020.gr 32 90
+n = 32
+deg = 5
+found better lower bound: 2
+found better lower bound: 3
+found better lower bound: 4
+done computing lower bounds in 55591ms
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+timeout
+11 data/exact_022.gr 33 135
+n = 33
+deg = 8
+found better lower bound: 2
+found better lower bound: 3
+found better lower bound: 4
+found better lower bound: 5
+done computing lower bounds in 38112ms
+BnB found 12
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+Branch and Bound Solution (35ms)
+twin width: 5
+12 data/exact_024.gr 40 89
+n = 40
+deg = 4
+found better lower bound: 2
+found better lower bound: 3
+found better lower bound: 4
+done computing lower bounds in 12421ms
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+timeout
+13 data/exact_026.gr 44 95
+n = 44
+deg = 4
+found better lower bound: 2
+found better lower bound: 3
+done computing lower bounds in 13540ms
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+timeout
+14 data/exact_028.gr 47 79
+n = 47
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 5982ms
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+15 data/exact_030.gr 48 78
+n = 48
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 5591ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+16 data/exact_032.gr 48 94
+n = 48
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+found better lower bound: 3
+done computing lower bounds in 6990ms
+BnB found 15
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+Branch and Bound Solution (1273ms)
+twin width: 3
+17 data/exact_034.gr 51 240
+n = 51
+deg = 9
+found better lower bound: 2
+found better lower bound: 3
+found better lower bound: 4
+done computing lower bounds in 17631ms
+BnB found 6
+BnB found 5
+BnB found 4
+Branch and Bound Solution (15ms)
+twin width: 4
+18 data/exact_036.gr 52 87
+n = 52
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 4379ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+19 data/exact_038.gr 52 141
+n = 52
+deg = 5
+found better lower bound: 1
+found better lower bound: 2
+found better lower bound: 3
+done computing lower bounds in 6363ms
+BnB found 15
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+timeout
+20 data/exact_040.gr 54 85
+n = 54
+deg = 3
+found better lower bound: 2
+done computing lower bounds in 2582ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+21 data/exact_042.gr 54 124
+n = 54
+deg = 4
+found better lower bound: 2
+found better lower bound: 3
+done computing lower bounds in 6639ms
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+Branch and Bound Solution (329ms)
+twin width: 3
+22 data/exact_044.gr 56 64
+n = 56
+deg = 2
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 1507ms
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+Branch and Bound Solution (288ms)
+twin width: 2
+23 data/exact_046.gr 57 107
+n = 57
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 5234ms
+BnB found 16
+BnB found 15
+BnB found 14
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+24 data/exact_048.gr 60 103
+n = 60
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+found better lower bound: 3
+done computing lower bounds in 3330ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+Branch and Bound Solution (312ms)
+twin width: 3
+25 data/exact_050.gr 62 108
+n = 62
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 2809ms
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+Branch and Bound Solution (259ms)
+twin width: 2
+26 data/exact_052.gr 66 122
+n = 66
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 1723ms
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+27 data/exact_054.gr 73 132
+n = 73
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+found better lower bound: 3
+done computing lower bounds in 1992ms
+BnB found 13
+BnB found 12
+BnB found 11
+BnB found 10
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+timeout
+28 data/exact_056.gr 74 116
+n = 74
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 1247ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+BnB found 0
+BnB found 2
+BnB found 0
+BnB found 0
+BnB found 0
+BnB found 0
+BnB found 0
+Branch and Bound Solution (693ms)
+twin width: 2
+29 data/exact_058.gr 78 93
+n = 78
+deg = 2
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 1105ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+30 data/exact_060.gr 80 94
+n = 80
+deg = 2
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 1018ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+31 data/exact_062.gr 81 155
+n = 81
+deg = 3
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 1139ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+32 data/exact_064.gr 84 85
+n = 84
+deg = 2
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 837ms
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+33 data/exact_066.gr 94 98
+n = 94
+deg = 2
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 698ms
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+BnB found 9
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+BnB found 2
+Branch and Bound Solution (294ms)
+twin width: 2
+34 data/exact_068.gr 103 151
+n = 103
+deg = 2
+found better lower bound: 1
+found better lower bound: 2
+done computing lower bounds in 686ms
+BnB found 8
+BnB found 7
+BnB found 6
+BnB found 5
+BnB found 4
+BnB found 3
+timeout
+
