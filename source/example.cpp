@@ -19,12 +19,20 @@ struct Solution {
     TreeRepresentation merges;
     int width = 1e9;
     vector<int> rdeg;
+
+    struct MergeData {
+        int width_before;
+        vector<int> rdeg, adj_from, adj_to;
+    };
+    vector<MergeData> merge_data = {};
+
     void merge(int from, int to) {
+        merge_data.push_back({width, rdeg, mat[from], mat[to]});
         rep(i,ssize(mat)) {
             if(i==from || i==to) continue;
             auto same = (mat[i][from] == mat[i][to]);
             auto new_val = same ? mat[i][to] : 2;
-            if(mat[i][to] == 2 && new_val != 2) rdeg[i]--, rdeg[to]--;
+            //if(mat[i][to] == 2 && new_val != 2) rdeg[i]--, rdeg[to]--; // cannot happen
             if(mat[i][to] != 2 && new_val == 2) rdeg[i]++, rdeg[to]++;
             mat[i][to] = mat[to][i] = new_val;
 
@@ -39,6 +47,20 @@ struct Solution {
         merges.order.push_back(from);
         merges.parent[from] = to;
     }
+
+    void pop_merge() {
+        auto n = ssize(mat);
+        auto& prev = merge_data.back();
+        int from = merges.order.back(); merges.order.pop_back();
+        int to = merges.parent[from]; merges.parent[from] = -1;
+        width = prev.width_before;
+        rdeg = prev.rdeg;
+        rep(i,n) {
+            mat[i][to] = mat[to][i] = prev.adj_to[i];
+            mat[i][from] = mat[from][i] = prev.adj_from[i];
+        }
+        merge_data.pop_back();
+    }
 };
 
 struct Algo {
@@ -47,18 +69,22 @@ struct Algo {
     map<vector<int>,int> cache;
     Solution best;
     int lower_bound = 0;
+    int search_space = 0;
 
     explicit Algo(const Graph& _g) : g(_g) {};
 
     // runtime: fac(n) * fac(n-1) // 2**(n-1) * poly(n)
-    void iterate_trees(Solution partial, vector<int> partition) {
+    void iterate_trees(Solution& partial, vector<int> partition) {
         if(best.width <= lower_bound) return; // we are done -> break out of recursion
 
+        search_space++;
+        if(verbose && search_space%100000 == 0) cout << "BnB search space: " << search_space << endl;
+
         auto n = ssize(partial.mat);
-        if(size(partial.merges.order) == n - 1) { // complete tree
+        if(ssize(partial.merges.order) == n - 1) { // complete tree
             if(partial.width < best.width) {
                 best = partial;
-                if(verbose) cout << "BnB found " << partial.width << endl;
+                if(verbose) cout << "BnB found " << partial.width << "\t (after " << search_space << ')' << endl;
             }
             return;
         }
@@ -76,31 +102,44 @@ struct Algo {
 
         // merge twins
         rep(v,n) rep(u,n) { // v into u
-                if(!alive[v] || !alive[u] || u==v) continue;
-                bool eq = 1;
-                //rep(i,n) if(alive[i] && i!=v && i!=u && partial.mat[v][i]!=partial.mat[u][i]) eq = 0;
-                rep(i,n) {
-                    if(!alive[i] || i==v || i==u) continue;
-                    if(minmax(partial.mat[v][i],partial.mat[u][i])==minmax(0,1)) eq = 0;
-                    if(partial.mat[v][i]==2 && partial.mat[u][i]!=2) eq = 0;
-                    if(eq==0) break;
-                }
-                if(eq) {
-                    partial.merge(v,u);
-                    replace(all(partition),v,u);
-                    return iterate_trees(move(partial),partition);
-                }
+            if(!alive[v] || !alive[u] || u==v) continue;
+            bool eq = 1;
+            //rep(i,n) if(alive[i] && i!=v && i!=u && partial.mat[v][i]!=partial.mat[u][i]) eq = 0;
+            rep(i,n) {
+                if(!alive[i] || i==v || i==u) continue;
+                if(minmax(partial.mat[v][i],partial.mat[u][i])==minmax(0,1)) eq = 0;
+                if(partial.mat[v][i]==2 && partial.mat[u][i]!=2) eq = 0;
+                if(eq==0) break;
             }
+            if(eq) {
+                partial.merge(v,u);
+                replace(all(partition),v,u);
+                iterate_trees(partial,partition);
+                partial.pop_merge();
+                return;
+            }
+        }
+
+        vector<pair<int,int>> branches;
 
         rep(v,n) { // iterate possible candidates for order
             if(!alive[v]) continue;
             for(int p=v+1; p<n; ++p) { // iterate all possible parents
                 if(!alive[p]) continue;
-                auto nxt = partial; nxt.merge(v,p);
-                auto nextPar = partition;
-                rep(i,n) if(nextPar[i]==v) nextPar[i] = p;
-                iterate_trees(nxt,nextPar);
+                branches.emplace_back(v,p);
             }
+        }
+
+        sort(all(branches),[&](auto& a, auto& b) { // merge red edges first :)
+            return (partial.mat[a.first][a.second]==2) > (partial.mat[b.first][b.second]==2);
+        });
+
+        for(auto [v,p]: branches) {
+            auto nextPar = partition;
+            replace(all(nextPar),v,p);
+            partial.merge(v,p);
+            iterate_trees(partial,nextPar);
+            partial.pop_merge();
         }
     }
 
@@ -108,6 +147,7 @@ struct Algo {
         // reset stuff
         cache.clear();
         best = Solution{};
+        search_space = 0;
 
         auto n = ssize(g);
         best.width = ub;
@@ -212,8 +252,6 @@ int random_lower_bound(const Graph& mat, bool verbose) {
         auto sol = Algo(g).solve(lower_bound, lower_bound+2);
         if(sol.width > lower_bound) {
             if(verbose) cout << "found better lower bound: " << sol.width << endl;
-//            for(int v : nodes) cout << v << ' ';
-//            cout << endl;
             lower_bound = sol.width;
         }
     }
@@ -225,7 +263,7 @@ int main() {
     cin.tie(nullptr);
     cout.precision(10);
 
-//    freopen("../../data/exact_048.gr", "r", stdin);
+    freopen("../../data/exact_068.gr", "r", stdin);
 
     auto edge_list = readInput();
     cout << "n = " << edge_list.n << endl;
@@ -239,6 +277,7 @@ int main() {
     }
 
     auto t1 = chrono::steady_clock::now();
+    int search_space = 0;
     auto comps = components(edge_list);
     vector<Solution> sols;
     for(auto& comp : comps) {
@@ -246,13 +285,15 @@ int main() {
         alg.verbose = true;
         auto sol = alg.solve(l);
         sols.push_back(sol);
+        search_space += alg.search_space;
     }
     auto t2 = chrono::steady_clock::now();
-    cout << "Branch and Bound Solution (";
-    cout << chrono::duration_cast<chrono::milliseconds>(t2-t1).count() << "ms)" << endl;
+    cout << "Branch and Bound Solution" << endl;
     int width = 0;
     for(auto& sol : sols) width = max(width,sol.width);
-    cout << "twin width: " << width << endl;
+    cout << "twin width:   " << width << endl;
+    cout << "search space: " << search_space << endl;
+    cout << "running time: " << chrono::duration_cast<chrono::milliseconds>(t2-t1).count() << "ms" << endl;
 
     return 0;
 }

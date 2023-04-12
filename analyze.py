@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 import networkx as nx
+import pandas as pd
+
+df = pd.read_csv('results/overview.csv', index_col='num')
 
 for i in range(2,201,2):
     name = f'data/exact_{i:03}.gr'
@@ -15,4 +18,10 @@ for i in range(2,201,2):
     CCs = list(nx.connected_components(G))
     print('comps: ', len(CCs), ' (max=', max(map(len,CCs)), ')')
     print()
+
+    df.loc[i//2,'n'] = n
+    df.loc[i//2,'comps'] = len(CCs)
+    df.loc[i//2,'deg'] = round(2*m/n,2)
+
+df.to_csv('results/overview.csv')
     
