@@ -230,7 +230,6 @@ artifacts/
 *.tlh
 *.tmp
 *.tmp_proj
-*.log
 *.vspscc
 *.vssscc
 .builds
@@ -459,3 +458,7 @@ __pycache__/
 # should be stored in the .pubxml.user file.
 
 # End of https://www.gitignore.io/api/c++,macos,cmake,clion,windows,visualstudio
+
+
+run_info.json
+modcomp
