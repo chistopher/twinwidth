@@ -25,7 +25,7 @@ for num in list(range(1,35))+[100]:
     print(num, name, flush=True)
     timeout = False
     try:
-        res = subprocess.run(['./cmake-build-release/source/main', '-v'], 
+        res = subprocess.run(['./cmake-build-release/main', '-v'], 
             stdin=open(name), 
             stdout=subprocess.DEVNULL,
             stderr=open(logfile,'a'), 

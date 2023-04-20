@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
     cin.tie(nullptr);
     cout.precision(10);
 
-    //freopen("../../data/exact_016.gr", "r", stdin);
+    //freopen("../data/exact_032.gr", "r", stdin);
 
     auto edge_list = readInput();
     cerr << "n = " << edge_list.n << endl;
@@ -41,18 +41,21 @@ int main(int argc, char** argv) {
     cerr << "running time: " << chrono::duration_cast<chrono::milliseconds>(t2-t1).count() << " ms" << endl;
 
     // print output sequence
+    vector<pair<int,int>> merges;
     rep(i,ssize(comps))
         for(int v : sols[i].merges.order)
-            cout << comps[i].idx[v]+1 << ' ' << comps[i].idx[sols[i].merges.parent[v]]+1 << endl;
+            merges.emplace_back(comps[i].idx[v], comps[i].idx[sols[i].merges.parent[v]]);
+    rep(i,ssize(comps)-1)
+        merges.emplace_back(comps[i].idx.back(),comps.back().idx.back());
+    for(auto [u,v] : merges)
+        cout << v+1 << ' ' << u+1 << endl; // 1-indexed and other order
 
-        // only validate in debug mode
 #ifndef NDEBUG
+    // only validate in debug mode
     Solution sol{toMat(edge_list),{.order = {},.parent = vector(edge_list.n,-1)}, 0, vector(edge_list.n,0)};
-    rep(i,size(comps))
-        for(int v : sols[i].merges.order)
-            sol.merge(comps[i].idx[v], comps[i].idx[sols[i].merges.parent[v]]);
+    for(auto [u,v] : merges) sol.merge(u,v);
     assert(sol.width==width);
-    assert(ssize(sol.merges.order)==edge_list.n-1);
+    assert(ssize(merges)==edge_list.n-1);
 #endif
 
     if(argc>1 && string(argv[1])=="-v") {

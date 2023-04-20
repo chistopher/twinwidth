@@ -10,5 +10,4 @@ add_executable(main
         algo.cpp
         main.cpp
 )
-#add_executable(partition partitionDP.cpp)
-#target_link_libraries(example girgs::girgs)
+set_target_properties(main PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")

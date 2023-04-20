@@ -1,12 +1,14 @@
 
-project(CPT)
-
 # CMake version
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
+project(CPT)
+
 set (CMAKE_CXX_STANDARD 20)
-#find_package(girgs)
-#find_package(OpenMP)
+if(NOT CMAKE_BUILD_TYPE)
+    message(STATUS "No build type selected, default to Release")
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build." FORCE)
+endif()
 
 if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(
@@ -22,7 +24,7 @@ if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     )
     add_link_options(
         #   -fsanitize=address,undefined
-            -fno-omit-frame-pointer
+        #   -fno-omit-frame-pointer
     )
 endif()
 

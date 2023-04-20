@@ -462,3 +462,4 @@ __pycache__/
 
 run_info.json
 modcomp
+*.tgz

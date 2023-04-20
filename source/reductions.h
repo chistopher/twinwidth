@@ -4,6 +4,7 @@
 
 // 09 481687087
 // 11 213779992
+// 16 346687841
 
 optional<Solution> cut_greed(const Solution& partial, int lb) {
     auto& mat=partial.mat;
