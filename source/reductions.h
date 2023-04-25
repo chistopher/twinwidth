@@ -3,12 +3,16 @@
 #include "algo.h"
 
 // 09 481687087
-// 11 213779992
+// 11 213779992 (80s)
+// 15 823278744 (5min)
 // 16 346687841
+// 20 607000000
+// 23
 
-optional<Solution> cut_greed(const Solution& partial, int lb) {
+vector<pair<int,int>> cut_greed(const Solution& partial, int lb) {
     auto& mat=partial.mat;
     int n = int(size(mat));
+    if(lb<=1) return {}; // does not work for tw1 or tw2 (e.g. path gets red at both ends)
 
     // find out nodes in graph merged until i-1
     vector<bool> alive(n,true);
@@ -34,7 +38,11 @@ optional<Solution> cut_greed(const Solution& partial, int lb) {
                     comp.push_back(w);
                 }
             }
-            if(ssize(comp)+1<num_alive && ssize(comp)>2 && ssize(comp)<=lb) {
+            if(ssize(comp)+1<num_alive && ssize(comp)>2 && ssize(comp)<=3*lb) {
+//                map<int,string> cols;
+//                for(int vv : comp) cols[vv] = "blue";
+//                cols[v] = "green";
+//                draw(mat, cols);
                 Solution sol = partial;
                 vector<int> dist1, other;
                 for(auto u : comp) if(mat[v][u]!=0) dist1.push_back(u); else other.push_back(u);
@@ -49,9 +57,42 @@ optional<Solution> cut_greed(const Solution& partial, int lb) {
                     if(u!=mx_dist1)
                         sol.merge(u,mx_dist1);
                 assert(sol.merges.order>partial.merges.order);
-                if(sol.width<=lb) return sol;
-                //cout << "found comp of size " << ssize(comp) << " and lb " << lb << endl;
+                if(sol.width<=lb) {
+                    vector<pair<int,int>> ret;
+                    for(auto i=size(partial.merges.order); i<size(sol.merges.order); i++)
+                        ret.emplace_back(sol.merges.order[i],sol.merges.parent[sol.merges.order[i]]);
+                    return ret;
+                }
             }
+        }
+    }
+    return {};
+}
+
+vector<pair<int,int>> twins(const Solution& partial) {
+    auto n = ssize(partial.mat);
+    // find out nodes in graph merged until i-1
+    vector<bool> alive(n,true);
+    for(auto& x: partial.merges.order)
+        alive[x] = false;
+
+    // merge twins
+    rep(v,n) rep(u,n) { // v into u
+        if(!alive[v] || !alive[u] || u==v) continue;
+        bool eq = true;
+        rep(i,n) {
+            if(!alive[i] || i==v || i==u) continue;
+            if(minmax(partial.mat[v][i],partial.mat[u][i])==minmax(0,1)) eq = 0;
+            if(partial.mat[v][i]==2 && partial.mat[u][i]!=2) eq = 0; // u has superset of red edges
+            if(eq==0) break;
+        }
+        if(eq) {
+            if(v>u) swap(v,u);
+//            map<int,string> cols;
+//            cols[v] = "red";
+//            cols[u] = "red";
+//            draw(partial.mat, cols);
+            return {{v,u}};
         }
     }
     return {};

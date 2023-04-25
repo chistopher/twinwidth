@@ -71,3 +71,32 @@ Graph subgraph(const Graph& g, const vector<int>& nodes) {
     rep(i,n) rep(j,n) mat[i][j] = g[nodes[i]][nodes[j]];
     return mat;
 }
+
+
+Graph aliveSubgraph(const Graph& g) {
+    vector<int> nodes;
+    rep(i,ssize(g)) if(g[i][i]!=-1) nodes.push_back(i);
+    return subgraph(g,nodes);
+}
+
+
+void draw(const Graph& g, map<int,string> color, map<int,string> label) {
+    // use graphviz to draw graph
+    ofstream f("graph.dot");
+    f << "graph G {" << endl;
+    rep(i,ssize(g)) {
+        if(g[i][i]==-1) continue; // deleted vertex
+        f << i;
+        if(color.count(i)) f << " [style=filled,fillcolor=" << color[i] << "]";
+        if(label.count(i)) f << " [label=" << label[i] << "]";
+        f << ";\n" << endl;
+    }
+    rep(i,ssize(g)) rep(j,i) {
+        if(g[i][j]==0 || g[i][j]==-1) continue;
+        f << i << " -- " << j;
+        if(g[i][j]==2) f << " [color=red]";
+        f << ";\n" << endl;
+    }
+    f << "}" << endl;
+    system("dot -Tpng graph.dot -o graph.png");
+}

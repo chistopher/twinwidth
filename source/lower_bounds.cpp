@@ -17,7 +17,7 @@ int random_lower_bound(const Graph& mat, bool verbose) {
         auto nodes = perm;
         nodes.resize(N);
         auto g = subgraph(mat,nodes);
-        auto sol = Algo(g).solve(lower_bound, lower_bound+2);
+        auto sol = Algo().solve(g,lower_bound, lower_bound+2);
         if(sol.width > lower_bound) {
             if(verbose) cerr << "found better lower bound: " << sol.width << endl;
             lower_bound = sol.width;
@@ -36,8 +36,8 @@ int lower_bound2(const Graph& mat) {
         for(int i=0; i<n; ++i)
             for(int j=i+1; j<n; ++j)
                 rep(k,n)
-        if(k!=i && k!=j && mat[i][k]!=mat[j][k])
-            next[k] += (rank[i] * rank[j]);
+                    if(k!=i && k!=j && mat[i][k]!=mat[j][k])
+                        next[k] += (rank[i] * rank[j]);
         auto sum = accumulate(all(next),0.0);
         for(auto& x : next) x /= sum;
         swap(rank,next);
@@ -59,20 +59,21 @@ int lower_bound2(const Graph& mat) {
         }
         nodes.resize(min(n,25));
     }
-    auto l = Algo(subgraph(mat,nodes)).solve().width;
+    auto l = Algo().solve(subgraph(mat,nodes)).width;
     return l;
 }
 
 int lower_bound(const Graph& mat, bool verbose) {
+    auto g = aliveSubgraph(mat);
     auto t1 = chrono::steady_clock::now();
-    int l1 = random_lower_bound(mat, false);
+    int l1 = random_lower_bound(g, false);
     auto t2 = chrono::steady_clock::now();
     if(verbose) {
         cerr << "rand lb: " << l1 << endl;
         cerr << "done computing random lower bounds in " << chrono::duration_cast<chrono::milliseconds>(t2-t1).count() << "ms" << endl;
     }
     t1 = chrono::steady_clock::now();
-    auto l2 = lower_bound2(mat);
+    auto l2 = lower_bound2(g);
     t2 = chrono::steady_clock::now();
     if(verbose) {
         cerr << "page lb: " << l2 << endl;

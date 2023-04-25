@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
     cin.tie(nullptr);
     cout.precision(10);
 
-    //freopen("../data/exact_032.gr", "r", stdin);
+    // freopen("../data/exact_046.gr", "r", stdin);
 
     auto edge_list = readInput();
     cerr << "n = " << edge_list.n << endl;
@@ -24,9 +24,9 @@ int main(int argc, char** argv) {
         if(comps.size()>1) cerr << "component " << &comp - &comps[0] << endl;
         int l = lower_bound(toMat(comp), true);
         cerr << "lower bound:  " << l << endl;
-        Algo alg(toMat(comp));
+        Algo alg;
         alg.verbose = true;
-        auto sol = alg.solve(l);
+        auto sol = alg.solve(toMat(comp), l);
         sols.push_back(sol);
         search_space += alg.search_space;
         l_max = max(l_max, l);

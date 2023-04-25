@@ -24,12 +24,10 @@ struct Solution {
 
 struct Algo {
     bool verbose = false;
-    const Graph g;
     map<vector<int>,int> cache;
     Solution best;
-    int lower_bound = 0;
+    int m_lower_bound = 0;
     int search_space = 0;
-    explicit Algo(const Graph& _g) : g(_g) {};
     void iterate_trees(Solution& partial, vector<int> partition); // runtime: fac(n) * fac(n-1) // 2**(n-1) * poly(n)
-    Solution solve(int lb = 0, int ub = 1e9);
+    Solution solve(const Graph& g, int lb = 0, int ub = 1e9);
 };

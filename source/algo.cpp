@@ -1,6 +1,7 @@
 
 #include "algo.h"
 #include "reductions.h"
+#include "lower_bounds.h"
 
 void Solution::merge(int from, int to) {
     assert(from<to);
@@ -40,7 +41,7 @@ void Solution::pop_merge() {
 }
 
 void Algo::iterate_trees(Solution& partial, vector<int> partition) {
-    if(best.width <= lower_bound) return; // we are done -> break out of recursion
+    if(best.width <= m_lower_bound) return; // we are done -> break out of recursion
 
     search_space++;
     if(verbose && search_space%1000000 == 0) cerr << "BnB search space: " << search_space << endl;
@@ -86,20 +87,7 @@ void Algo::iterate_trees(Solution& partial, vector<int> partition) {
         }
     }
 
-    if(verbose && false) {
-        auto s = cut_greed(partial,max(lower_bound,partial.width));
-        if(s) {
-            auto sol = *s;
-            vector part = partition;
-            for(auto& x: sol.merges.order)
-                alive[x] = false;
-            rep(i,n) while(!alive[part[i]]) part[i] = sol.merges.parent[part[i]];
-            return iterate_trees(sol,part);
-        }
-    }
-
     vector<pair<int,int>> branches;
-
     rep(v,n) { // iterate possible candidates for order
         if(!alive[v]) continue;
         for(int p=v+1; p<n; ++p) { // iterate all possible parents
@@ -121,7 +109,8 @@ void Algo::iterate_trees(Solution& partial, vector<int> partition) {
     }
 }
 
-Solution Algo::solve(int lb, int ub) {
+Solution Algo::solve(const Graph& g, int lb, int ub) {
+    rep(i,ssize(g)) assert(g[i][i]!=-1);
     // reset stuff
     cache.clear();
     best = Solution{};
@@ -129,10 +118,49 @@ Solution Algo::solve(int lb, int ub) {
 
     auto n = ssize(g);
     best.width = ub;
-    lower_bound = lb;
+    m_lower_bound = lb;
     Solution partial{g,{.order = {},.parent = vector(n,-1)}, 0, vector(n,0)};
+    rep(i,n) partial.rdeg[i] = (int)count(all(g[i]),2); // needed if called with red edges
+
+    if(verbose) {
+        vector<pair<int,int>> m;
+        do {
+            m = twins(partial);
+            if(empty(m)) m=cut_greed(partial,lb);
+            for(auto [v,p] : m)
+                partial.merge(v,p);
+            if(size(m)) cerr << "reduced to " << ssize(partial.mat) - ssize(partial.merges.order) << endl;
+        } while(!empty(m));
+    }
+
+    if(partial.merges.order.size()) { // initial reductions worked
+        auto l2 = lower_bound(partial.mat, true);
+        m_lower_bound = lb = max(l2, lb);
+        // remove deleted nodes
+        vector<int> nodes;
+        rep(i,n) if(partial.mat[i][i]!=-1) nodes.push_back(i);
+        auto g2 = subgraph(partial.mat, nodes);
+        auto rdeg = vector(ssize(g2),0);
+        rep(i,ssize(g2)) rep(j,i) if(g2[i][j]==2) rdeg[i]++, rdeg[j]++;
+        auto partial2 = Solution{g2,{.order = {},.parent = vector(ssize(g2),-1)}, lb, rdeg};
+        vector partition2(size(g2),0);
+        iota(all(partition2),0);
+        iterate_trees(partial2, partition2);
+        if(best.width>=1'000'000'000) return Solution{};
+        // apply initial merges to solution
+        rep(i,ssize(best.merges.order)) {
+            int v = best.merges.order[i];
+            int p = best.merges.parent[v];
+            partial.merge(nodes[v],nodes[p]);
+        }
+        return partial;
+    }
+
+    // no initial reductions
     vector partition(n,0);
     iota(all(partition),0);
+    for(int v : partial.merges.order)
+        replace(all(partition),v,partial.merges.parent[v]);
     iterate_trees(partial, partition);
     return best;
 }

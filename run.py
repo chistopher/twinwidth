@@ -24,6 +24,8 @@ for num in list(range(1,35))+[100]:
 
     print(num, name, flush=True)
     timeout = False
+    with open(logfile,'a') as f:
+        f.write(f'\n{num}\n')
     try:
         res = subprocess.run(['./cmake-build-release/main', '-v'], 
             stdin=open(name), 
