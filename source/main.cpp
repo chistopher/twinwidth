@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
     cin.tie(nullptr);
     cout.precision(10);
 
-    // freopen("../data/exact_046.gr", "r", stdin);
+    //freopen("../data/exact_046.gr", "r", stdin);
 
     auto edge_list = readInput();
     cerr << "n = " << edge_list.n << endl;

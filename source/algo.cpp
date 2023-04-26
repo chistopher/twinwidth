@@ -26,6 +26,19 @@ void Solution::merge(int from, int to) {
     merges.parent[from] = to;
 }
 
+int reds_created(const Graph& mat, int u, int v) {
+    assert(mat[u][u]!=-1);
+    assert(mat[v][v]!=-1);
+    auto n = ssize(mat);
+    int res = 0;
+    rep(i,n) {
+        if(i==u || i==v || mat[i][i]==-1) continue;
+        if(minmax(mat[u][i],mat[v][i])==minmax(0,1)) res++;
+        else if(mat[u][i]==2 && mat[v][i]==2) res--;
+    }
+    return res - (mat[u][v]==2);
+}
+
 void Solution::pop_merge() {
     auto n = ssize(mat);
     auto& prev = merge_data.back();
@@ -96,11 +109,30 @@ void Algo::iterate_trees(Solution& partial, vector<int> partition) {
         }
     }
 
-    sort(all(branches),[&](auto& a, auto& b) { // merge red edges first :)
-        return (partial.mat[a.first][a.second]==2) > (partial.mat[b.first][b.second]==2);
+    vector<int> badness(size(branches),0);
+    vector<int> nodes;
+    rep(i,n) if(alive[i]) nodes.push_back(i);
+    rep(t,ssize(branches)) {
+        auto [u,v] = branches[t];
+        auto& mat = partial.mat;
+        if(mat[u][v]==2) badness[t]--;
+        for(int i : nodes) {
+            if(i==u || i==v) continue;
+            if(minmax(mat[u][i],mat[v][i])==minmax(0,1)) badness[t]++;
+            else if(mat[u][i]==2 && mat[v][i]==2) badness[t]--;
+            if(badness[t]-partial.rdeg[u]>=best.width) { badness[t] = 10000; break; }
+        }
+    }
+    vector<int> perm(ssize(branches));
+    iota(all(perm),0);
+    sort(all(perm),[&](auto& a, auto& b) { // merge red edges first :)
+        return badness[a] < badness[b];
+        //return (partial.mat[a.first][a.second]==2) > (partial.mat[b.first][b.second]==2);
     });
 
-    for(auto [v,p]: branches) {
+    //for(auto [v,p]: branches) {
+    rep(i,ssize(perm)) {
+        auto [v,p] = branches[perm[i]];
         auto nextPar = partition;
         replace(all(nextPar),v,p);
         partial.merge(v,p);
