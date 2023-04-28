@@ -26,19 +26,6 @@ void Solution::merge(int from, int to) {
     merges.parent[from] = to;
 }
 
-int reds_created(const Graph& mat, int u, int v) {
-    assert(mat[u][u]!=-1);
-    assert(mat[v][v]!=-1);
-    auto n = ssize(mat);
-    int res = 0;
-    rep(i,n) {
-        if(i==u || i==v || mat[i][i]==-1) continue;
-        if(minmax(mat[u][i],mat[v][i])==minmax(0,1)) res++;
-        else if(mat[u][i]==2 && mat[v][i]==2) res--;
-    }
-    return res - (mat[u][v]==2);
-}
-
 void Solution::pop_merge() {
     auto n = ssize(mat);
     auto& prev = merge_data.back();
@@ -151,17 +138,20 @@ Solution Algo::solve(const Graph& g, int lb, int ub) {
     auto n = ssize(g);
     best.width = ub;
     m_lower_bound = lb;
-    Solution partial{g,{.order = {},.parent = vector(n,-1)}, 0, vector(n,0)};
+    Solution partial{g,{.order = {},.parent = vector(n,-1)}, lb, vector(n,0)};
     rep(i,n) partial.rdeg[i] = (int)count(all(g[i]),2); // needed if called with red edges
 
     if(verbose) {
         vector<pair<int,int>> m;
         do {
+            string rule;
             m = twins(partial);
+            if(!empty(m)) rule = "twin";
             if(empty(m)) m=cut_greed(partial,lb);
+            if(!empty(m) && empty(rule)) rule = "greed" + to_string(size(m));
             for(auto [v,p] : m)
                 partial.merge(v,p);
-            if(size(m)) cerr << "reduced to " << ssize(partial.mat) - ssize(partial.merges.order) << endl;
+            if(size(m)) cerr << "reduced to " << ssize(partial.mat) - ssize(partial.merges.order) << " with " << rule << endl;
         } while(!empty(m));
     }
 
