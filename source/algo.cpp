@@ -44,7 +44,9 @@ void Algo::iterate_trees(Solution& partial, vector<int> partition) {
     if(best.width <= m_lower_bound) return; // we are done -> break out of recursion
 
     search_space++;
-    if(verbose && search_space%1000000 == 0) cerr << "BnB search space: " << search_space << endl;
+    static auto min_seen = size(partial.merges.order);
+    min_seen = min(min_seen, size(partial.merges.order));
+    if(verbose && search_space%10000 == 0) cerr << "BnB search space: " << search_space << ' ' << min_seen << endl, min_seen = 10000;
 
     auto n = ssize(partial.mat);
     if(ssize(partial.merges.order) == n - 1) { // complete tree
@@ -97,17 +99,20 @@ void Algo::iterate_trees(Solution& partial, vector<int> partition) {
     }
 
     vector<int> badness(size(branches),0);
+    vector<int> rdeg(size(branches),0);
     vector<int> nodes;
     rep(i,n) if(alive[i]) nodes.push_back(i);
+    int INF = 1000000;
     rep(t,ssize(branches)) {
         auto [u,v] = branches[t];
         auto& mat = partial.mat;
         if(mat[u][v]==2) badness[t]--;
         for(int i : nodes) {
             if(i==u || i==v) continue;
+            if(mat[i][u]==2 || mat[i][v]==2 || minmax(mat[i][u],mat[i][v])==minmax(0,1)) rdeg[t]++;
             if(minmax(mat[u][i],mat[v][i])==minmax(0,1)) badness[t]++;
             else if(mat[u][i]==2 && mat[v][i]==2) badness[t]--;
-            if(badness[t]-partial.rdeg[u]>=best.width) { badness[t] = 10000; break; }
+            if(rdeg[t]>=best.width) { badness[t] = INF; break; }
         }
     }
     vector<int> perm(ssize(branches));
@@ -116,15 +121,17 @@ void Algo::iterate_trees(Solution& partial, vector<int> partition) {
         return badness[a] < badness[b];
         //return (partial.mat[a.first][a.second]==2) > (partial.mat[b.first][b.second]==2);
     });
+    while(!empty(perm) && badness[perm.back()]==INF) perm.pop_back();
 
-    //for(auto [v,p]: branches) {
     rep(i,ssize(perm)) {
+        if(rdeg[perm[i]]>=best.width) continue;
         auto [v,p] = branches[perm[i]];
         auto nextPar = partition;
         replace(all(nextPar),v,p);
         partial.merge(v,p);
         iterate_trees(partial,nextPar);
         partial.pop_merge();
+        if(partial.width>=best.width) return;
     }
 }
 

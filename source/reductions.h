@@ -76,9 +76,12 @@ vector<pair<int,int>> twins(const Solution& partial) {
     for(auto& x: partial.merges.order)
         alive[x] = false;
 
+    vector used(n,false);
+    vector<pair<int,int>> res;
     // merge twins
     rep(v,n) rep(u,n) { // v into u
         if(!alive[v] || !alive[u] || u==v) continue;
+        if(used[v] || used[u]) continue;
         bool eq = true;
         rep(i,n) {
             if(!alive[i] || i==v || i==u) continue;
@@ -92,8 +95,10 @@ vector<pair<int,int>> twins(const Solution& partial) {
 //            cols[v] = "red";
 //            cols[u] = "red";
 //            draw(partial.mat, cols);
-            return {{v,u}};
+            res.emplace_back(v,u);
+            used[v] = used[u] = true;
+            //return {{v,u}};
         }
     }
-    return {};
+    return res;
 }

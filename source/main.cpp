@@ -8,7 +8,8 @@ int main(int argc, char** argv) {
     cin.tie(nullptr);
     cout.precision(10);
 
-    //freopen("../data/exact_046.gr", "r", stdin);
+    //string file = "../data/exact_0" + to_string(2*49) + ".gr";
+    //freopen(file.c_str(), "r", stdin);
 
     auto edge_list = readInput();
     cerr << "n = " << edge_list.n << endl;
@@ -20,8 +21,8 @@ int main(int argc, char** argv) {
     vector<Solution> sols;
     int l_max = 0;
     for(auto& comp : comps) {
-        while(comp.n>=200); // TLE on large instances
-        if(comps.size()>1) cerr << "component " << &comp - &comps[0] << endl;
+        //while(comp.n>=200); // TLE on large instances
+        if(comps.size()>1) cerr << "component " << &comp - &comps[0] << " of size " << comp.n << endl;
         int l = lower_bound(toMat(comp), true);
         cerr << "lower bound:  " << l << endl;
         Algo alg;
