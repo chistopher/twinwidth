@@ -254,9 +254,9 @@ int next_bound2(const Graph& _mat) {
             mat[i][v] = mat[v][i] = -1;
         }
         rep(i,n) assert(rdeg[i]==count(all(mat[i]),2));
-        cout << next_bound << ' ';
+//        cerr << next_bound << ' ';
     }
-    cout << res << endl;
+//    cerr << res << endl;
     return res;
 }
 
