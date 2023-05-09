@@ -16,3 +16,4 @@ Graph toMat(const EdgeList& g);
 Graph subgraph(const Graph& g, const vector<int>& nodes);
 Graph aliveSubgraph(const Graph& g);
 void draw(const Graph& g, map<int,string> color = {}, map<int,string> label= {});
+void draw_snapshot(const Graph& g, int time, int v, int p);

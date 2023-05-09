@@ -1,0 +1,283 @@
+1 data/exact_002.gr
+lower bound 6
+opt         6
+s. space    87
+time        9 ms
+diff space  0
+diff time   0 ms
+
+2 data/exact_004.gr
+lower bound 7
+opt         7
+s. space    170
+time        162 ms
+diff space  0
+diff time   5 ms
+
+3 data/exact_006.gr
+lower bound 7
+opt         7
+s. space    23399
+time        282 ms
+diff space  0
+diff time   9 ms
+
+4 data/exact_008.gr
+lower bound 10
+opt         10
+s. space    205
+time        34 ms
+diff space  0
+diff time   -3 ms
+
+5 data/exact_010.gr
+lower bound 6
+opt         6
+s. space    243
+time        1733 ms
+diff space  0
+diff time   64 ms
+
+6 data/exact_012.gr
+lower bound 7
+opt         8
+s. space    20593
+time        296 ms
+diff space  0
+diff time   13 ms
+
+7 data/exact_014.gr
+lower bound 7
+opt         8
+s. space    19586
+time        275 ms
+diff space  0
+diff time   12 ms
+
+8 data/exact_016.gr
+lower bound 7
+opt         8
+s. space    40559
+time        438 ms
+diff space  0
+diff time   14 ms
+
+9 data/exact_018.gr
+lower bound 3
+opt         3
+s. space    660125
+time        3778 ms
+diff space  0
+diff time   198 ms
+
+10 data/exact_020.gr
+lower bound 5
+opt         5
+s. space    152
+time        171 ms
+diff space  0
+diff time   5 ms
+
+11 data/exact_022.gr
+lower bound 5
+opt         5
+s. space    5434
+time        1021 ms
+diff space  0
+diff time   44 ms
+
+12 data/exact_024.gr
+lower bound 5
+opt         5
+s. space    530
+time        4153 ms
+diff space  0
+diff time   215 ms
+
+13 data/exact_026.gr
+lower bound 4
+opt         4
+s. space    56893
+time        1472 ms
+diff space  0
+diff time   79 ms
+
+14 data/exact_028.gr
+lower bound 3
+opt         3
+s. space    87
+time        524 ms
+diff space  0
+diff time   27 ms
+
+15 data/exact_030.gr
+lower bound 3
+opt         3
+s. space    87
+time        186 ms
+diff space  0
+diff time   16 ms
+
+16 data/exact_032.gr
+lower bound 3
+opt         3
+s. space    21763
+time        1001 ms
+diff space  0
+diff time   56 ms
+
+17 data/exact_034.gr
+lower bound 4
+opt         4
+s. space    65
+time        1011 ms
+diff space  0
+diff time   60 ms
+
+18 data/exact_036.gr
+lower bound 3
+opt         3
+s. space    59
+time        270 ms
+diff space  0
+diff time   13 ms
+
+19 data/exact_038.gr
+lower bound 3
+opt         3
+s. space    274
+time        404 ms
+diff space  0
+diff time   23 ms
+
+20 data/exact_040.gr
+lower bound 3
+opt         3
+s. space    112
+time        4310 ms
+diff space  0
+diff time   229 ms
+
+21 data/exact_042.gr
+lower bound 3
+opt         3
+s. space    149
+time        447 ms
+diff space  0
+diff time   54 ms
+
+22 data/exact_044.gr
+lower bound 2
+opt         2
+s. space    91
+time        157 ms
+diff space  0
+diff time   16 ms
+
+23 data/exact_046.gr
+lower bound 3
+opt         3
+s. space    142
+time        781 ms
+diff space  0
+diff time   80 ms
+
+24 data/exact_048.gr
+lower bound 3
+opt         3
+s. space    213
+time        603 ms
+diff space  0
+diff time   36 ms
+
+25 data/exact_050.gr
+lower bound 2
+opt         2
+s. space    170
+time        140 ms
+diff space  0
+diff time   26 ms
+
+26 data/exact_052.gr
+lower bound 3
+opt         3
+s. space    125
+time        853 ms
+diff space  0
+diff time   119 ms
+
+27 data/exact_054.gr
+lower bound 5
+opt         5
+s. space    660
+time        7394 ms
+diff space  0
+diff time   1249 ms
+
+28 data/exact_056.gr
+lower bound 2
+opt         2
+s. space    91
+time        116 ms
+diff space  0
+diff time   3 ms
+
+29 data/exact_058.gr
+lower bound 3
+opt         3
+s. space    256
+time        3224 ms
+diff space  0
+diff time   337 ms
+
+30 data/exact_060.gr
+lower bound 3
+opt         3
+s. space    224
+time        6688 ms
+diff space  0
+diff time   609 ms
+
+31 data/exact_062.gr
+lower bound 2
+opt         2
+s. space    797
+time        126 ms
+diff space  0
+diff time   11 ms
+
+32 data/exact_064.gr
+lower bound 2
+opt         2
+s. space    24
+time        164 ms
+diff space  0
+diff time   6 ms
+
+33 data/exact_066.gr
+lower bound 2
+opt         2
+s. space    61
+time        134 ms
+diff space  0
+diff time   9 ms
+
+34 data/exact_068.gr
+lower bound 2
+opt         2
+s. space    7727
+time        104 ms
+diff space  0
+diff time   3 ms
+
+100 data/exact_200.gr
+lower bound 0
+opt         0
+s. space    5000
+time        606 ms
+diff space  0
+diff time   18 ms
+
+num solved 35
+new solved []
+new lost []

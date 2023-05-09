@@ -100,3 +100,32 @@ void draw(const Graph& g, map<int,string> color, map<int,string> label) {
     f << "}" << endl;
     system("dot -Tpng graph.dot -o graph.png");
 }
+
+void draw_snapshot(const Graph& g, int time, int v, int p) {
+    int n = size(g);
+    std::ofstream file(to_string(time) + ".gexf");
+    file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+    file << "<gexf version=\"1.3\" xmlns=\"http://gexf.net/1.3\" xmlns:viz=\"http://gexf.net/1.3/viz\">\n";
+    file << "<graph mode=\"slice\" defaultedgetype=\"undirected\" timerepresentation=\"timestamp\" timestamp=\"" << time << "\">\n";
+    file << "<nodes>\n";
+    for(int i = 0; i < n; ++i)
+        if(g[i][i]!=-1) {
+            file << "\t<node id=\"" << i << "\">";
+            if(i==v) file << "<viz:color r=\"9\" g=\"200\" b=\"3\" a=\"0.9\"/>";
+            else if(i==p) file << "<viz:color r=\"9\" g=\"2\" b=\"200\" a=\"0.9\"/>";
+            else file << "<viz:color r=\"9\" g=\"2\" b=\"2\" a=\"0.9\"/>";
+            file << "</node>\n";
+        }
+    file << "</nodes>\n";
+    file << "<edges>\n";
+    for(int i = 0; i < n; ++i)
+        rep(j,i)
+            if(g[i][j]>=1) {
+                file << "\t<edge source=\"" << i << "\" target=\"" << j << "\">";
+                if(g[i][j]==2) file << "<viz:color r=\"239\" g=\"3\" b=\"3\" a=\"0.9\"/>";
+                file << "</edge>\n";
+            }
+    file << "</edges>\n";
+    file << "</graph>\n";
+    file << "</gexf>\n";
+}

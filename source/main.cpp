@@ -8,8 +8,12 @@ int main(int argc, char** argv) {
     cin.tie(nullptr);
     cout.precision(10);
 
-    //string file = "../data/exact_0" + to_string(2*49) + ".gr";
-    //freopen(file.c_str(), "r", stdin);
+//    int num = 15;
+//    num*=2;
+//    string filename = "../data/exact_" + to_string(num/100) + to_string(num/10%10) + to_string(num%10) + ".gr";
+//    cerr << filename << endl;
+//    freopen(filename.c_str(), "r", stdin);
+////    freopen("../data/exact_178.gr", "r", stdin);
 
     auto edge_list = readInput();
     cerr << "n = " << edge_list.n << endl;

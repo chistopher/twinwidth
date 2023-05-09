@@ -103,7 +103,7 @@ int lower_bound3(const Graph& mat) {
 
 int bunk_bound(const Graph& mat) {
     auto n = ssize(mat);
-    if(n<=20) return 0;
+    if(n<=20 || n>=3000) return 0;
     int low = 0;
     mt19937 gen{};
     rep(s,n) {
@@ -150,7 +150,7 @@ int reds_created(const Graph& mat, int u, int v) {
 }
 
 int next_merge_bound(const Graph& mat) {
-    if(size(mat)<=1) return 0;
+    if(size(mat)<=1 || size(mat)>=3000) return 0;
     int mn = 1e9;
     rep(i,ssize(mat)) rep(j,i) {
         if(mat[i][i]==-1 || mat[j][j]==-1) continue;
@@ -298,6 +298,7 @@ int lower_bound(const Graph& mat, bool verbose) {
     t2 = chrono::steady_clock::now();
     if(verbose) cerr << "next2lb: " << l6 << " (" << chrono::duration_cast<chrono::milliseconds>(t2-t1).count() << "ms)" << endl;
 
+    // 91653349
     //return max({l0,l1,l2,l3,l4,l5});
     return max({l0,l2,l3,l4,l5,l6});
 }
