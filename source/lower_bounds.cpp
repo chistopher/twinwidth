@@ -298,8 +298,17 @@ int lower_bound(const Graph& mat, bool verbose) {
     t2 = chrono::steady_clock::now();
     if(verbose) cerr << "next2lb: " << l6 << " (" << chrono::duration_cast<chrono::milliseconds>(t2-t1).count() << "ms)" << endl;
 
-    // 91653349
+    // 91653349 // low = 0; no clusters; 10min
+    // 23930461 // low = 2; no clusters; 2min
+    // 11746941, 2732810 // low = 2; clusters; 126s
     //return max({l0,l1,l2,l3,l4,l5});
+
+    // 34811736, 5321827
+    // 35713037, 5427936
+
+    // 23
+    // 6033162; 88s; cluster
+    // 6033162; 86s; no cluster
     return max({l0,l2,l3,l4,l5,l6});
 }
 

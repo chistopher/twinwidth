@@ -18,6 +18,37 @@ EdgeList readInput() {
     return {n,edges,idx};
 }
 
+EdgeList readGephiExport(const string& filename) {
+    ifstream file(filename);
+
+    map<int,int> node_map;
+    int next_id = 0;
+    auto get_id = [&](int v) {
+        if(!node_map.contains(v)) node_map[v] = next_id++;
+        return node_map[v];
+    };
+
+    vector<pair<int,int>> edges;
+    string line;
+    while(getline(file,line)) {
+        stringstream ss(line);
+        int v = 0; ss>>v; ss.get();
+        v = get_id(v);
+
+        int nei;
+        while(ss>>nei) {
+            edges.emplace_back(v, get_id(nei));
+            if(ss) ss.get();
+        }
+    }
+
+    int n = next_id;
+    vector idx(n,0);
+    iota(all(idx),0);
+
+    return {n, edges, idx};
+}
+
 vector<EdgeList> components(const EdgeList& g) {
     // create adj list
     auto n = g.n;

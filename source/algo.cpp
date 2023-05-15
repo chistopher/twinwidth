@@ -6,8 +6,8 @@
 vector<int> Solution::TreeRepresentation::get_partition() const {
     auto n = ssize(parent);
     auto partition = parent;
-    for(int i=n-1; i>=0; --i)
-        partition[i] = (parent[i]==-1 ? i : partition[parent[i]]);
+    for(auto i=n-1; i>=0; --i)
+        partition[i] = int(parent[i]==-1 ? i : partition[parent[i]]);
     return partition;
 }
 
@@ -138,9 +138,7 @@ void Algo::iterate_trees(Solution& partial) {
     else cache[partition] = partial.width;
 
 //    if(verbose && !empty(partial.merges.order)) {
-//        int p = partial.merges.parent[partial.merges.order.back()];
-//        assert(p== partition[partial.merges.order.back()]); // TODO inline if good
-//        add_cluster(partial, p);
+//        add_cluster(partial, partial.merges.parent[partial.merges.order.back()]);
 //    }
 
     // find out nodes in graph merged until i-1
@@ -167,6 +165,26 @@ void Algo::iterate_trees(Solution& partial) {
             return;
         }
     }
+
+//    auto reduction = check_clusters(partial);
+//    if(!empty(reduction)) {
+//        //if(verbose) cerr << "reduction by clusters" << endl;
+//        bool skip = false;
+//        bool first = true;
+//        for(auto [v,p] : reduction) {
+//            if(!first) {
+//                const auto partition = partial.merges.get_partition();
+//                if(auto it = cache.find(partition); it!=end(cache) && it->second<=partial.width)
+//                    skip = true;
+//                else cache[partition] = partial.width;
+//            }
+//            first = false;
+//            partial.merge(v,p);
+//        }
+//        if(!skip) iterate_trees(partial);
+//        for(auto _ : reduction) partial.pop_merge();
+//        return;
+//    }
 
     // find and sort all merges
     vector<pair<int,int>> branches;
@@ -233,62 +251,75 @@ void Algo::add_cluster(const Solution &partial, int p) {
         }
         assert(merges.size()==size(nodes)-1);
         cluster.insert({nodes, merges});
-        if(false){
-            auto tmp = partial;
-            while(tmp.merges.order.size()) tmp.pop_merge();
-            map<int,string> colors;
-            rep(i,n) {
-                if(partition[i]==p) continue;
-                int rep = i;
-                while(partial.merges.parent[rep]!=-1) rep = partial.merges.parent[rep];
-                if(partial.mat[rep][p]==2) colors[i] = "red";
-            }
 
-            for(auto x : nodes) colors[x] = "blue";
-            draw(tmp.mat, colors);
-            auto a = 1;
-        }
+//        auto tmp = partial;
+//        while(tmp.merges.order.size()) tmp.pop_merge();
+//        map<int,string> colors;
+//        rep(i,n) {
+//            if(partition[i]==p) continue;
+//            int rep = i;
+//            while(partial.merges.parent[rep]!=-1) rep = partial.merges.parent[rep];
+//            if(partial.mat[rep][p]==2) colors[i] = "red";
+//        }
+//        for(auto x : nodes) colors[x] = "blue";
+//        draw(tmp.mat, colors);
     }
 }
 
-vector<pair<int, int>> Algo::check_clusters(const Solution &partial) {
+vector<pair<int, int>> Algo::check_clusters(Solution &partial) {
+    int allowed_width = max(partial.width,m_lower_bound);
     auto n = ssize(partial.mat);
+    auto super = [&](int x) {
+        while(partial.merges.parent[x]!=-1) x = partial.merges.parent[x];
+        return x;
+    };
 
     for(auto [nodes, merges] : cluster) {
 
-        auto is_in_cluster = [&](int x) { return binary_search(all(nodes),x); };
-        auto tmp = partial;
         bool worked = true;
-        vector has_red_after_merge(n,false);
+        vector<pair<int,int>> applied_merges;
         for(auto [x,y] : merges) {
-            int rep1 = x, rep2 = y;
-            while(tmp.merges.parent[rep1]!=-1) rep1 = tmp.merges.parent[rep1];
-            while(tmp.merges.parent[rep2]!=-1) rep2 = tmp.merges.parent[rep2];
+            int rep1 = super(x), rep2 = super(y);
             if(rep1==rep2) continue;
             if(rep1>rep2) swap(rep1,rep2);
-            tmp.merge(rep1,rep2);
-            if(tmp.width>partial.width) { worked = false; break;}
+            partial.merge(rep1,rep2);
+            applied_merges.emplace_back(rep1,rep2);
+            worked &= (partial.width<=allowed_width);
         }
-        if(!worked) continue;
-        if(size(tmp.merges.order)==size(partial.merges.order)) continue;
+        if(!worked || empty(applied_merges)) {
+            for(auto _ : applied_merges) partial.pop_merge();
+            continue;
+        }
+
+        auto cluster_rep = super(nodes.back());
+
+        // check tree like stuff
+        if(partial.rdeg[cluster_rep]==1 && allowed_width>=2) {
+            int nei = -1;
+            rep(i,n) if(partial.mat[cluster_rep][i]==2) nei = i;
+            assert(nei!=-1);
+            auto nei_deg_b = count(all(partial.mat[nei]),1);;
+            auto nei_deg_r = count(all(partial.mat[nei]),2);
+            if((nei_deg_r==1 && nei_deg_b==1) || (nei_deg_r==2 && nei_deg_b==0)) {
+                for(auto _ : applied_merges) partial.pop_merge();
+                return applied_merges;
+            }
+        }
 
         // check if there is a cluster node before merge that has red edges to entire red neighborhood of cluster after merge
-        rep(i,n) if(tmp.mat[i][nodes.back()]==2) has_red_after_merge[i] = true;
+        vector has_red_after_merge(n,false);
+        rep(i,n) if(partial.mat[cluster_rep][i]==2) has_red_after_merge[i] = true;
+        for(auto _ : applied_merges) partial.pop_merge();
+
         int has_all_node = -1;
         for(int x : nodes) {
+            x = super(x);
             bool is_good = true;
-            rep(i,n) {
-                if(is_in_cluster(i)) continue;
-                if(!has_red_after_merge[i]) continue;
-                is_good &= (partial.mat[x][i]==2);
-            }
+            rep(i,n) if(has_red_after_merge[i]) is_good &= (partial.mat[x][i]==2);
             if(is_good) has_all_node = x;
         }
-        if(has_all_node==-1) continue;
-        // WORKED!!!
-        // iter_trees(..)
-        // return
-        // TODO
+        if(has_all_node!=-1)
+            return applied_merges; // safe
     }
 
     return {};

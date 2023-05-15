@@ -13,14 +13,15 @@ int main(int argc, char** argv) {
 //    string filename = "../data/exact_" + to_string(num/100) + to_string(num/10%10) + to_string(num%10) + ".gr";
 //    cerr << filename << endl;
 //    freopen(filename.c_str(), "r", stdin);
-////    freopen("../data/exact_178.gr", "r", stdin);
-
+//    freopen("../data/exact_178.gr", "r", stdin);
+//    auto edge_list = readGephiExport("../schlauch.csv");
     auto edge_list = readInput();
     cerr << "n = " << edge_list.n << endl;
     cerr << "deg = " << 2*ssize(edge_list.edges)/edge_list.n << endl;
 
     auto t1 = chrono::steady_clock::now();
     int search_space = 0;
+    int partitions = 0;
     auto comps = components(edge_list);
     vector<Solution> sols;
     int l_max = 0;
@@ -34,6 +35,7 @@ int main(int argc, char** argv) {
         auto sol = alg.solve(toMat(comp), l);
         sols.push_back(sol);
         search_space += alg.search_space;
+        partitions += size(alg.cache);
         l_max = max(l_max, l);
     }
 
@@ -44,6 +46,7 @@ int main(int argc, char** argv) {
     cerr << "twin width:   " << width << endl;
     cerr << "search space: " << search_space << endl;
     cerr << "running time: " << chrono::duration_cast<chrono::milliseconds>(t2-t1).count() << " ms" << endl;
+    cerr << "partitions:   " << partitions << endl;
 
     // print output sequence
     vector<pair<int,int>> merges;

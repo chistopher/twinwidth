@@ -36,5 +36,5 @@ struct Algo {
 private:
     void iterate_trees(Solution& partial); // runtime: fac(n) * fac(n-1) // 2**(n-1) * poly(n)
     void add_cluster(const Solution& partial, int p);
-    vector<pair<int,int>> check_clusters(const Solution& partial);
+    vector<pair<int,int>> check_clusters(Solution& partial);
 };

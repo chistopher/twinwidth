@@ -11,6 +11,7 @@ struct EdgeList {
 };
 
 EdgeList readInput();
+EdgeList readGephiExport(const string& filename);
 vector<EdgeList> components(const EdgeList& g);
 Graph toMat(const EdgeList& g);
 Graph subgraph(const Graph& g, const vector<int>& nodes);
