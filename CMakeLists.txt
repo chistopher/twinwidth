@@ -2,7 +2,7 @@
 # CMake version
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 
-project(CPT)
+project(twinwidth)
 
 set (CMAKE_CXX_STANDARD 20)
 if(NOT CMAKE_BUILD_TYPE)
