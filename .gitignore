@@ -463,3 +463,16 @@ __pycache__/
 run_info.json
 modcomp
 *.tgz
+
+
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.vtc
+
+desc/paper.pdf
+
