@@ -80,7 +80,7 @@ In this write-up we outline the core techniques used in our exact twinwidth algo
 The concept of twinwidth captures the distance of a graph to a co-graph~\cite{twin1}.
 In this section we give a brief definition.
 
-We define a contraction (or merge) of two vertices $u,v$ in a simple and undirected graph as follows.
+We define a \emph{contraction} (or \emph{merge}) of two vertices $u,v$ in a simple and undirected graph as follows.
 The two vertices are deleted from the graph and replaced by a new vertex $w$.
 For all other vertices $x$, $w$ has an edge to $x$ if both, $u$ and $v$ had an edge to $x$.
 Similarly, $w$ has no edge to $x$ if both $u$ and $v$ had no edge to $x$.
@@ -92,22 +92,22 @@ The \emph{width} of a sequence of contractions is the maximum red degree of its 
 The \emph{twinwidth} of a graph is the minimum width over all contraction sequences that contract the graph into a single vertex.
 
 \section{Solver Summary}
-At its core, our solver is a branch and bound algorithm that finds an optimal contraction sequence.
+At its core, our solver is a branch-and-bound algorithm that finds an optimal contraction sequence.
 It starts with an empty contraction sequence, applies reduction rules, and then branches on all possible merges.
 After solving all branches recursively, the best one gives the result.
 The algorithm maintains the best solution found so far as an upper bound for the input instance.
 When a merge results in a width that is higher or equal to this upper bound then the current branch is pruned, since this branch cannot cannot contain a better solution.
 
 The input instance is split into connected components which are solved separately.
-The split is only done at the top-level call, because merges cannot separate components.
+This split is only done at the top-level call, because merges cannot separate components.
 
 
 \subsection{Skip Seen Partitions}
-In an intermediate graph after some contractions, each vertex represents a set of original vertices that were contracted to form this super-vertex.
+In an intermediate graph after some contractions, each vertex represents a set of original vertices that were contracted to form this (super-)vertex.
 Thus, the vertices of an intermediate graph imply a partitioning of the original vertices.
 In fact, this partitioning uniquely defines the intermediate graph.
 A crucial improvement of our algorithm is based on the observation that there are many partial contraction sequences that result in the same partitioning.
-For example doing the same contractions in a different order results in the same intermediate graph, however it might increase the width of the sequence.
+For example, doing the same contractions in a different order results in the same intermediate graph, however it might increase the width of the sequence.
 The algorithm saves all partitions that are reached with a certain width.
 If a partition is encountered that was previously reached with a lower or equal width, then the branch is pruned because any possible solution in this branch would also have been found the first time this partition was processed.
 Since the twinwidth is less than $n$, the search-space of the algorithm is at most $n$ times the number of partitions of a set (also called the Bell number).
@@ -127,13 +127,14 @@ We process the branches that produce the least number of red edges first.
 \caption{The reduction rule to merge components behind a cut vertex. Proof: just trust me :)}
 \label{fig:cut}
 \end{figure}
+We employ two reduction rules.
 The first reduction rule is based on twins.
-One of those vertices can be removed, because a merge of the two vertices has the same result as the removal of one of them and twinwidth is non-increasing for subgraphs.
+If the graph contains two distinct vertices with the same neighborhood, one of those vertices can be removed, because a merge of the two vertices has the same result as the removal of one of them and twinwidth is non-increasing for subgraphs.
 To generalize this rule to red edges, we also consider two vertices twins, if the red edges of one vertex are a superset of the red edges of the other vertex and they agree on the neighbors for which neither has a red edge.
 In this case, a merge would also be the same as the removal of the vertex with less red edges.
 
 The second reduction rule aims to solve small biconnected components.
-If a cut vertex separates a small component from the rest of the graph we try to merge the attached component together using some heuristic.
+If a cut vertex separates a small component from the rest of the graph we try to heuristically merge the attached component into two vertices.
 For this, we merge all direct neighbors of the cut vertex into one vertex and the rest of the component (if existing) into another vertex.
 The result is shown in Figure~\ref{fig:cut}.
 We can only apply the rule if the greedy merge does not increase the width.
@@ -149,10 +150,10 @@ Most instances admit a huge number of optimal solutions and partial sequences th
 In general, it is way easier to find a good solution than to prove optimality.
 Therefore, we made a great effort to find tight lower bounds.
 
-The first type of bounds is based on the fact that the twinwidth of an induced subgraph is at most the twinwidth of the complete graph.
+The first type of bounds is based on the fact that the twinwidth is monotone w.r.t. taking subgraphs.
 To obtain a lower bound for an instance, we find small subgraphs using various heuristics and solve them optimally using our solver.
-We brute-force subgraphs of size 20-30 because they can be solved in a few milliseconds.
-Moreover, instances with a small twinwidth often have a small subgraph with the same width.
+We brute-force subgraphs of size 20-30 because they can be solved within few milliseconds.
+Moreover, the public instances with a small twinwidth often have a small subgraph with the same width.
 Unfortunately, we cannot obtain lower bounds that are higher than what is possible with 20-30 vertices.
 E.g., random graphs have a twinwidth close to $n/2$~\cite{ahn2022twinwidth}.
 
